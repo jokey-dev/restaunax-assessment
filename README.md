@@ -1,12 +1,10 @@
 ## Restaunax Assessment Solution
 
-```md
-## Project Documentation
+### Project Documentation
 
-For detailed setup, structure, and implementation guidelines, please refer to the following modules:
+For detailed setup, folder structure, and implementation guidelines, please explore the following modules:
 
-- [Backend Documentation](./backend/README.md)
-- [Frontend Documentation](./frontend/README.md)
+- **[Backend Documentation](backend/README.md)**
+- **[Frontend Documentation](frontend/README.md)**
 
-✨📘🚀
-```
+## The End
