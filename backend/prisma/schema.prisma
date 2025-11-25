@@ -1,0 +1,68 @@
+generator client {
+  provider   = "prisma-client"
+  output     = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum OrderType {
+  delivery
+  dine_in
+  pickup
+}
+
+enum OrderStatus {
+  pending
+  preparing
+  ready
+  completed
+  cancelled
+}
+
+model Item {
+  id          Int       @id @default(autoincrement())
+  name        String
+  price       Float
+  description String?   // optional description
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  orderItems  OrderItem[]
+
+  @@map("items")
+}
+
+model Order {
+  id                   Int          @id @default(autoincrement())
+  orderNumber          String  @unique
+  customerName         String
+  customerEmail        String
+  customerPhone        String
+  customerRewardPoints Int
+  orderType            OrderType
+  status               OrderStatus  @default(pending)
+  total                Float
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+
+  items                OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+
+  item      Item    @relation(fields: [itemId], references: [id])
+  itemId    Int
+
+  quantity  Int
+  price     Float   // Store the item price at the time of order
+  createdAt DateTime @default(now())
+
+  @@map("order_items")
+}
